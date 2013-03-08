@@ -1,6 +1,6 @@
 [Desktop Entry]
-Name=Plistoid
-Comment=plista monitor
+Name=Mumbloid
+Comment=Mumble Server Status
 Icon=chronometer
 
 Type=Service
@@ -8,14 +8,14 @@ X-KDE-ServiceTypes=Plasma/Applet
 
 X-Plasma-API=javascript
 X-Plasma-MainScript=code/main.js
-X-Plasma-DefaultSize=200,200
+X-Plasma-DefaultSize=300,200
 
 X-KDE-PluginInfo-Author=Moritz Schmidt
 X-KDE-PluginInfo-Email=fusselwurm@gmail.com
-X-KDE-PluginInfo-Name=plistoid
+X-KDE-PluginInfo-Name=mumbloid
 X-KDE-PluginInfo-Version=0.1
 X-KDE-PluginInfo-Website=http://plasma.kde.org/
-X-KDE-PluginInfo-Category=Examples
+X-KDE-PluginInfo-Category=Online Services
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
