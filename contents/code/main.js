@@ -1,6 +1,16 @@
 var
+	// havent figured out how to create menu, so change here
+	config = {
+		cvpurl: "http://gronom.de:5000/1",
+		interval: 60
+	},
+
 	layout = new LinearLayout(plasmoid),
-	label  = new Label(),
+	labelMain  = new Label(),
+	editCvpUrl = new LineEdit(),
+	/*
+	 * users as cvp returns them
+	 */
 	userlist = [],
 	/**
 	 * channelid => composite channelname
@@ -77,27 +87,30 @@ var
 
 		/*TEST*/
 		/*
-		var x = '';
-		for (var n in label) {
+		var x = '', tmp = '', cfg = [];
+		for (var n in plasmoid) {
 			try {
 
-				x = label[n];
-				s += '\n' + n + ': ';
-				s += x;
+				x = plasmoid[n];
+				tmp = '\n' + n + ': ';
+				tmp += x;
 			} catch (e) {
-				s += '###ERROR###';
+				tmp += '###ERROR###';
 			}
+			cfg.push(tmp);
 		}
+		cfg = cfg.sort();
 		*/
 		/*TEST*/
 
 
-		label.text = s;
+		labelMain.text = s;
+		//labelMain.text = cfg.join();
 	},
-	getData = function () {
+	getData = function (fn) {
 
 		var
-			httpJob = plasmoid.getUrl("http://gronom.de:5000/1"),
+			httpJob = plasmoid.getUrl(config.cvpurl),
 			responseBody = '';
 
 		print('refreshing...');
@@ -119,13 +132,19 @@ var
 				return;
 			}
 			print('got response with length ' + responseBody.length + '.... refreshing view...');
-			refreshView(responseBody);
+			fn(responseBody);
 		});
 	},
 	timer = new QTimer();
 
-layout.addItem(label);
+editCvpUrl.text = config.cvpurl;
+layout.orientation = 2; // should be QtVertical
+layout.addItem(editCvpUrl);
+layout.addItem(labelMain);
 
-getData();
-timer.timeout.connect(getData);
-timer.start(15 * 1000);
+getData(refreshView);
+
+timer.timeout.connect(function () {
+	getData(refreshView);
+});
+timer.start(config.interval * 1000);
